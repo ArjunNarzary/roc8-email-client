@@ -1,8 +1,11 @@
+import { EmailContextProvider } from "./context/EmailContext"
+import EmailClient from "./EmailClient"
+
 function App() {
   return (
-    <>
-      <div className=""></div>
-    </>
+    <EmailContextProvider>
+      <EmailClient />
+    </EmailContextProvider>
   )
 }
 
