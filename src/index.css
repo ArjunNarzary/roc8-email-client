@@ -3,16 +3,31 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply text-textColor;
-  }
   body {
-    @apply bg-backgroundColor;
-    scrollbar-width: 0;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    @apply bg-backgroundColor text-textColor;
   }
-  body::-webkit-scrollbar {
-    display: none;
+
+  .aticle-container > div {
+    @apply flex flex-col gap-4;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    @apply bg-backgroundColor w-[8px];
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-backgroundColor;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-borderColor rounded-[5px] border-[1px] border-white border-solid;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#555];
   }
 }

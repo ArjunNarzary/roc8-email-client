@@ -8,20 +8,20 @@ const FilterBy = ({
   >
 }) => {
   return (
-    <div className="flex justify-start items-center gap-8">
-      <h2>Filter By:</h2>
-      <div className="flex justify-start items-center gap-2">
-        <div
-          className={`cursor-pointer px-4 py-1 rounded-3xl ${
+    <div className="flex justify-start items-center gap-4">
+      <span>Filter By:</span>
+      <ul className="flex justify-start items-center gap-1">
+        <li
+          className={`cursor-pointer px-2 py-1 rounded-3xl ${
             active === "unread" &&
             "bg-filterButton border border-borderColor border-1"
           }`}
           onClick={() => setActiveTab("unread")}
         >
           Unread
-        </div>
+        </li>
 
-        <div
+        <li
           className={`cursor-pointer px-4 py-1 rounded-3xl ${
             active === "read" &&
             "bg-filterButton border border-borderColor border-1"
@@ -29,9 +29,9 @@ const FilterBy = ({
           onClick={() => setActiveTab("read")}
         >
           Read
-        </div>
+        </li>
 
-        <div
+        <li
           className={`cursor-pointer px-4 py-1 rounded-3xl ${
             active === "favorites" &&
             "bg-filterButton border border-borderColor border-1"
@@ -39,8 +39,8 @@ const FilterBy = ({
           onClick={() => setActiveTab("favorites")}
         >
           Favorites
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   )
 }

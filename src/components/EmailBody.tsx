@@ -11,9 +11,8 @@ interface IEmailBodyProps {
 const EmailBody = ({ loading = false, email }: IEmailBodyProps) => {
   const { favoriteEmails, markAsFavorite, removeFromFavorite } =
     useEmailContext()
-
   return (
-    <div className="w-2/3 px-4 border border-1 bg-white border-borderColor rounded-md flex justify-start items-start gap-4 p-6 h-[calc(100vh-9rem)] overflow-hidden">
+    <div className="w-2/3 px-4 border border-1 bg-white border-borderColor rounded-md flex justify-start items-start gap-5 p-6 h-[97%] overflow-hidden">
       {loading || !email ? (
         <Loader />
       ) : (
@@ -31,16 +30,16 @@ const EmailBody = ({ loading = false, email }: IEmailBodyProps) => {
                 }
               >
                 {favoriteEmails.includes(email.id)
-                  ? "Remove Favorite"
-                  : "Mark as Favorite"}
+                  ? "Remove from favorite"
+                  : "Mark as favorite"}
               </button>
             </div>
             <DateTime timeStamp={email.date} />
             {email?.longDescription && (
-              <div
-                className="max-h-[calc(100vh-250px)] overflow-auto"
+              <article
+                className="max-h-[calc(100vh-15rem)] overflow-auto aticle-container"
                 dangerouslySetInnerHTML={{ __html: email.longDescription }}
-              ></div>
+              ></article>
             )}
           </div>
         </>

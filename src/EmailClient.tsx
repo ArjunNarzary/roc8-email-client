@@ -20,7 +20,7 @@ function EmailClient() {
   const [showEmailBody, setShowEmailBody] = useState(false)
   const [loading, setLoading] = useState(true)
   const [emailBodyloading, setEmailBodyLoading] = useState(true)
-  const [error, setError] = useState("")
+  const [error, setError] = useState(false)
 
   const filterEmails = (emails: IEmailListResponse[]) => {
     if (activeTab === "read") {
@@ -35,13 +35,14 @@ function EmailClient() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
+      setError(false)
       try {
         const response = await fetch(`https://flipkart-email-mock.now.sh/`)
         const result = await response.json()
         setEmailList(result.list)
         setCurrentEmail(filterEmails(result.list))
       } catch {
-        setError("Something went wrong")
+        setError(true)
       } finally {
         setLoading(false)
       }
@@ -53,10 +54,12 @@ function EmailClient() {
       setLoading(false)
     }
     setShowEmailBody(false)
+    // eslint-disable-next-line
   }, [activeTab])
 
   const handleEmailClick = async (email: IEmailListResponse) => {
     setEmailBodyLoading(true)
+    setError(false)
     try {
       const response = await fetch(
         `https://flipkart-email-mock.vercel.app/?id=${email.id}`
@@ -67,7 +70,7 @@ function EmailClient() {
       setShowEmailBody(true)
     } catch {
       setShowEmailBody(false)
-      setError("Something went wrong")
+      setError(true)
     } finally {
       setEmailBodyLoading(false)
     }
@@ -75,6 +78,7 @@ function EmailClient() {
 
   return (
     <main className="p-10 h-screen overflow-hidden">
+      {error && <ErrorAlert />}
       <header>
         <FilterBy active={activeTab} setActiveTab={setActiveTab} />
       </header>
@@ -98,6 +102,27 @@ function EmailClient() {
         )}
       </section>
     </main>
+  )
+}
+
+const ErrorAlert = () => {
+  return (
+    <dialog
+      className="position-absolute top-0 left-0 h-screen w-screen bg-gray-500/50 flex justify-center items-center"
+      open
+    >
+      <div className="flex flex-col justify-center items-center gap-6 bg-white p-8 rounded-md">
+        <h2 className="text-2xl font-semibold">
+          Opps! Something went wrong. Please try again.
+        </h2>
+        <button
+          className="px-4 py-1 rounded-3xl bg-accent text-white w-fit"
+          onClick={() => window.location.reload()}
+        >
+          Reload
+        </button>
+      </div>
+    </dialog>
   )
 }
 
